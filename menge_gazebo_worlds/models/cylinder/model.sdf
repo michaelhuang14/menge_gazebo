@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<sdf version ='1.4'>
+  <model name ='cylinder'>
+    <pose>0 0 0 0 0 0</pose>
+    <link name ='link'>
+      <pose>0 0 1.03 0 0 0</pose>
+      <collision name ='collision'>
+        <geometry>
+          <cylinder><radius>0.5</radius><length>1</length></cylinder>
+        </geometry>
+      </collision>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+             <uri>model://cylinder/meshes/walk3.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <static>true</static>
+  </model>
+</sdf>

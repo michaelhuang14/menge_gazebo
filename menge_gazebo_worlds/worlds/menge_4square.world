@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+
+  <physics type='bullet'>
+  <max_step_size>0.020000</max_step_size>
+  <real_time_update_rate>50</real_time_update_rate>
+  <gravity>0.000000 0.000000 -9.800000</gravity>
+</physics>
+  
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <model name ='box1'>
+    <static>true</static>
+    <pose>3.33 3.33 0 0 0 0</pose>
+    <link name ='link'>
+      <collision name ='collision'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </collision>
+      <visual name ='visual'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+
+ <model name ='box2'>
+    <static>true</static>
+    <pose>-3.33 -3.33 0 0 0 0</pose>
+    <link name ='link'>
+      <collision name ='collision'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </collision>
+      <visual name ='visual'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+
+  <model name ='box3'>
+    <static>true</static>
+    <pose>3.33 -3.33 0 0 0 0</pose>
+    <link name ='link'>
+      <collision name ='collision'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </collision>
+      <visual name ='visual'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+  
+  <model name ='box4'>
+    <static>true</static>
+    <pose>-3.33 3.33 0 0 0 0</pose>
+    <link name ='link'>
+      <collision name ='collision'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </collision>
+      <visual name ='visual'>
+        <geometry>
+          <box><size>4 4 2</size></box>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+<!--
+    <population name="actor_population1">
+    <model name="MengeAgent">
+           <include>
+                 <uri>model://cylinder</uri>
+           </include>
+    </model>
+      <pose>3 3 1.0138 0 0 0</pose>
+      <box>
+        <size>10 10 0.6</size>
+      </box>
+      <model_count>36</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+-->
+    <plugin name="menge_gazebo_plugin" filename="libmenge_gazebo_plugin.so"/>
+  </world>
+</sdf>

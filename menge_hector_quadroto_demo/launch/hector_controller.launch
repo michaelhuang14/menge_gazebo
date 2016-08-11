@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+   
+  
+  
+  <!--add a launch file to another rosnode. this node will publish twist messages to cmd_vel topic -->
+  <include file="$(find hector_controller)/launch/hector_controller.launch"/>
+
+  
+</launch>

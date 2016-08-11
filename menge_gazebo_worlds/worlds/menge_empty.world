@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <plugin name="menge_gazebo_plugin" filename="libmenge_gazebo_plugin.so"/>
+
+
+  <physics type='ode'>
+  <max_step_size>0.020000</max_step_size>
+  <real_time_update_rate>50</real_time_update_rate>
+  <gravity>0.000000 0.000000 -9.800000</gravity>
+</physics>
+
+
+  </world>
+</sdf>
