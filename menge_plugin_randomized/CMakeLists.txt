@@ -135,6 +135,7 @@ include_directories(
 
 ## Declare a C++ library
  add_library(menge_plugin_randomized
+   src/MengePlugin.cpp
    src/MengeRand.cpp
    src/MyViewer.cpp
    src/ProjectSpec.cpp
