@@ -18,7 +18,7 @@
 #include <SimulatorDB.h>
 #include <SimulatorDBEntry.h>
 #include <SimulatorInterface.h>
-
+#include <string>
 namespace gazebo {
 
 class MengePlugin: public WorldPlugin {
@@ -56,6 +56,7 @@ protected:
 	protected: double targetWeight = 1.0;
 	protected: common::Time lastUpdate;
 	protected: physics::TrajectoryInfoPtr trajectoryInfo;
+	protected: std::string menge_project_file;
 };
 } /* namespace gazebo */
 

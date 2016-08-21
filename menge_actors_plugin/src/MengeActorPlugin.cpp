@@ -32,14 +32,13 @@ void MengeActorPlugin::insertAgentActor(const Agents::BaseAgent* agt)
  	 std::ostringstream actorStr;
  	 actorStr << "<sdf version='1.6'>"
 	    << "<actor name ='" << uniq_name << "'>"
-	
 	    << "  <skin>"
-	    << "    <filename>" << skinFile << "</filename>"
-	
+	    << "    <filename>" << skinFile << "</filename>"	
 	    << "  </skin>"
 	    << "  <animation name='" << animName << "'>"
 	    << "    <filename>" << animFile << "</filename>"
 	    << "<interpolate_x>true</interpolate_x>"
+	    //<<"<animation_factor>1<animation_factor>"
 	    << "<scale>1</scale>"
 	    << "  </animation>"
 	    << "</actor>"
@@ -54,66 +53,25 @@ void MengeActorPlugin::insertAgentActor(const Agents::BaseAgent* agt)
 
 void MengeActorPlugin::insertAgentModel(const Agents::BaseAgent* agt)
 {
-	if(agt->_id ==260)
-	{
-		sdf::SDF cylinderSDF;
-        std::stringstream ssdf;
-	ssdf <<"<sdf version ='1.4'>\
-  <model name ='cylinder'>\
-    <pose>20 0 0 0 0 0</pose>\
-    <static>true</static>\
-    <link name ='link'>\
-      <pose>0 0 .5 0 0 0</pose>\
-      <collision name ='collision'>\
-        <geometry>\
-          <cylinder><radius>"<<agt->_radius<<"</radius><length>1</length></cylinder>\
-        </geometry>\
-      </collision>\
-      <visual name='visual'>\
-        <geometry>\
-          <cylinder><radius>"<<agt->_radius<<"</radius><length>1</length></cylinder>\
-        </geometry>\
-      </visual>\
-    </link>\
-  </model>\
-</sdf>";
-	cylinderSDF.SetFromString(ssdf.str());
 	
-	// Demonstrate using a custom model name.
-	sdf::ElementPtr model = cylinderSDF.Root()->GetElement("model");
-	std::stringstream sstm;
-	sstm << "MengeAgent_clone_" <<agt->_id;
-	std::string uniq_name=sstm.str();
-	model->GetAttribute("name")->SetFromString(uniq_name);
-	std::cout<<"before insert"<<std::endl;
-	_world->InsertModelSDF(cylinderSDF);
-	std::cout<<"after insert"<<std::endl;
-	}
-	else{
-		std::stringstream sstm;
-		sstm << "MengeAgent_clone_" <<agt->_id;
-		std::string uniq_name=sstm.str();
-		 std::ostringstream actorStr;
-		 actorStr << "<sdf version='1.5'>"
-		    << "<model name ='" << uniq_name << "'>"
-		    << "<include>\
-		             <uri>model://cylinder</uri>\
-		       </include>\n"<<"</model>"
-		    << "</sdf>";  
-		msgs::Factory msg;
-		msg.set_sdf(actorStr.str());
-		msgs::Set(msg.mutable_pose(),
-		  ignition::math::Pose3d(
-		    ignition::math::Vector3d(agt->_pos.x(), agt->_pos.y(),0.0),
-		    ignition::math::Quaterniond(0, 0, 0)));
-		std::cout<<"before insert"<<std::endl;
-		factoryPub->Publish(msg);
-		std::cout<<"after insert"<<std::endl;
-	}
 
 }
+// for animated actors we need update the velocity, let the GPU animation to move the agent
+// We also need resync the position between gz and menge periodically
+
 bool MengeActorPlugin::updateAgent(const Agents::BaseAgent* agt)
 {
+//current position in rendering:
+//     virtual const AxisAlignedBox& Ogre::MovableObject::getWorldBoundingBox 	( 	bool  	derive = false	) 	const
+// position to move to: agt->_pos
+// orientation agt->_orient
+// velocity: agt->_vel
+// math::Pose 	GetPose () const
+// 	Get the pose of the visual. More...
+ 
+//math::Vector3 	GetPosition () const
+ //	Get the position of the visual. More...
+
 	return true;
 	
 }

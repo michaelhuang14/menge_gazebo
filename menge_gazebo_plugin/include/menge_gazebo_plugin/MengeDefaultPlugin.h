@@ -5,12 +5,13 @@
  *      Author: Michael Huang
  */
 
-#ifndef MENGECONG_H_
-#define MENGECONG_H_
+#ifndef MENGEDEFAULTPLUGIN_H_
+#define MENGEDEFAULTPLUGIN_H_
 #include "MengePlugin.h"
+
 namespace gazebo {
 
-class MengeCong:public MengePlugin {
+class MengeDefaultPlugin: public MengePlugin {
 
 protected:
 
@@ -18,7 +19,8 @@ protected:
 	virtual void insertAgentActor(const Menge::Agents::BaseAgent* agt);
 
 };
-GZ_REGISTER_WORLD_PLUGIN(MengeCong)
+
+GZ_REGISTER_WORLD_PLUGIN(MengeDefaultPlugin)
 } /* namespace gazebo */
 
-#endif /* MENGEPLUGIN_H_ */
+#endif /* MENGEDEFAULTPLUGIN_H_ */

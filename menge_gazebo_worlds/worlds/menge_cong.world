@@ -30,6 +30,8 @@
     </link>
   </model>
   
-    <plugin name="menge_congregate" filename="libmenge_congregate.so"/>
+    <plugin name="menge_congregate" filename="libmenge_congregate.so">
+         <menge_project_file>examples/core/cong.xml</menge_project_file>
+    </plugin>
   </world>
 </sdf>

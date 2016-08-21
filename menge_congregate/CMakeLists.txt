@@ -25,6 +25,7 @@ include_directories(${MENGE_SRC_DIR}/MengeCore/Runtime)
 include_directories(${MENGE_SRC_DIR}/MengeCore/SceneGraph)
 include_directories(${MENGE_SRC_DIR}/MengeCore/PluginEngine)
 include_directories(${MENGE_SRC_DIR}/MengeCore/Math)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../menge_common/include)
 link_directories (${MENGE_EXE_DIR})
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -136,8 +137,9 @@ include_directories(
 ## Declare a C++ library
  add_library(menge_congregate
    src/MengeCong.cpp
-   src/MyViewer.cpp
-   src/ProjectSpec.cpp
+   ../menge_common/src/MengePlugin.cpp
+   ../menge_common/src/MyViewer.cpp
+   ../menge_common/src/ProjectSpec.cpp
  )
 
 ## Add cmake target dependencies of the library

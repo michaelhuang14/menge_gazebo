@@ -5,7 +5,7 @@
  *      Author: Michael Huang
  */
 
-#include "MengeCong.h"
+#include "MengeDefaultPlugin.h"
 // STL
 #include <iostream>
 #include <algorithm>
@@ -16,12 +16,13 @@
 #include "gazebo/gazebo.hh"
 using namespace Menge;
 
+
 using namespace gazebo::physics;
 
 namespace gazebo {
 
 
-void MengeCong::insertAgentActor(const Agents::BaseAgent* agt)
+void MengeDefaultPlugin::insertAgentActor(const Agents::BaseAgent* agt)
 {
 	std::stringstream sstm;
 	sstm << "MengeAgent_clone_" <<agt->_id;
@@ -51,29 +52,30 @@ void MengeCong::insertAgentActor(const Agents::BaseAgent* agt)
 	
 }
 
-void MengeCong::insertAgentModel(const Agents::BaseAgent* agt)
+void MengeDefaultPlugin::insertAgentModel(const Agents::BaseAgent* agt)
 {
-	std::stringstream sstm;
-		sstm << "MengeAgent_clone_" <<agt->_id;
-		std::string uniq_name=sstm.str();
-		 std::ostringstream actorStr;
-		 actorStr << "<sdf version='1.5'>"
-		    << "<model name ='" << uniq_name << "'>"
-		    << "<include>\
-		             <uri>model://cylinder</uri>\
-		       </include>\n"<<"</model>"
-		    << "</sdf>";  
-		msgs::Factory msg;
-		msg.set_sdf(actorStr.str());
-		msgs::Set(msg.mutable_pose(),
-		  ignition::math::Pose3d(
-		    ignition::math::Vector3d(agt->_pos.x(), agt->_pos.y(),0.0),
-		    ignition::math::Quaterniond(0, 0, 0)));
-		std::cout<<"before insert"<<std::endl;
-		factoryPub->Publish(msg);
-		std::cout<<"after insert"<<std::endl;
-	
+        std::stringstream sstm;
+        sstm << "MengeAgent_clone_" <<agt->_id;
+        std::string uniq_name=sstm.str();
+         std::ostringstream actorStr;
+         actorStr << "<sdf version='1.5'>"
+            << "<model name ='" << uniq_name << "'>"
+            << "<include>\
+                     <uri>model://cylinder</uri>\
+               </include>\n"<<"</model>"
+            << "</sdf>";  
+        msgs::Factory msg;
+        msg.set_sdf(actorStr.str());
+        msgs::Set(msg.mutable_pose(),
+          ignition::math::Pose3d(
+            ignition::math::Vector3d(agt->_pos.x(), agt->_pos.y(),0.0),
+            ignition::math::Quaterniond(0, 0, 0)));
+        std::cout<<"before insert"<<std::endl;
+        factoryPub->Publish(msg);
+        std::cout<<"after insert"<<std::endl;
+
 }
+
 
 
 } /* namespace gazebo */

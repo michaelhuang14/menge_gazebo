@@ -63,8 +63,7 @@ int agentsEscaped = 0;
 double lastPrint = 0;
 bool StartPrint = false;
 
-// The location of the executable - for basic executable resources
-std::string ROOT;
+
 
 SimulatorDB simDB;
 using namespace gazebo::physics;
@@ -106,18 +105,27 @@ int MengePlugin::simMain( SimulatorDBEntry * dbEntry, const std::string & behave
 	return 0;
 }
 void MengePlugin::simLoad() {
+    std::cout<<"***project relative path:"<<this->menge_project_file<<std::endl;
 	logger.setFile("log.html");
 	logger << Logger::INFO_MSG << "initialized logger";
-// !TODO: quick and dirty hacks here. need better design
-	ROOT = getenv("MENGE_EXE"); //User sets MENGE_HOME env var to Menge Exe dir
+    // The location of the menge root directory
+    std::string ROOT("");
+	ROOT.append(getenv("MENGE_ROOT")); 
+	std::cout<<"root:"<<ROOT<<std::endl;
+
 	static const int argc = 3;
 	static char* argv[3];
 	argv[0] = "libmengeSim.so";
 	argv[1] = "-p";
-	argv[2] = getenv("MENGE_PROJECT_PATH"); //User sets MENGE_PROJECT_PATH env var to menge project file to be loaded
+	std::string projPath(os::path::join(2, ROOT.c_str(),this->menge_project_file.c_str()));
+	std::cout<<"***project path:"<<projPath<<std::endl;
+	char* buffer=new char[projPath.length()+1];
+	memset(buffer,0,(projPath.length()+1)*sizeof(char));
+	strncpy(buffer, projPath.c_str(), projPath.length());
+	argv[2] =buffer; 
 
 	PluginEngine plugins(&simDB);
-	std::string pluginPath = os::path::join(2, ROOT.c_str(), "plugins");
+	std::string pluginPath = os::path::join(2, ROOT.c_str(), "Exe/plugins");
 	logger.line();
 	logger << Logger::INFO_MSG << "Plugin path: " << pluginPath;
 	plugins.loadPlugins(pluginPath);
@@ -138,7 +146,7 @@ void MengePlugin::simLoad() {
 	if (!projSpec.fullySpecified()) {
 		return;
 	}
-
+    delete[] buffer;
 	VERBOSE = projSpec.getVerbosity();
 	TIME_STEP = projSpec.getTimeStep();
 	SUB_STEPS = projSpec.getSubSteps();
@@ -184,8 +192,15 @@ void MengePlugin::insertAgents()
 }
 void MengePlugin::Load(physics::WorldPtr _parent, sdf::ElementPtr _sdf) {
 	 this->_world = _parent;
-	simLoad();
- 
+
+  if (_sdf->HasElement("menge_project_file"))
+  {
+      this->menge_project_file.append(_sdf->Get<std::string>("menge_project_file"));
+  }else
+  {
+      this->menge_project_file.append(getenv("MENGE_PROJECT_PATH"));
+  }
+  	simLoad();
 
   this->connections.push_back(event::Events::ConnectWorldUpdateBegin(
           std::bind(&MengePlugin::OnUpdate, this, std::placeholders::_1)));

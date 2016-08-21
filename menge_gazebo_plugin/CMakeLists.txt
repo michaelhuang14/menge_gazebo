@@ -20,6 +20,7 @@ include_directories(${MENGE_SRC_DIR}/MengeCore/Runtime)
 include_directories(${MENGE_SRC_DIR}/MengeCore/SceneGraph)
 include_directories(${MENGE_SRC_DIR}/MengeCore/PluginEngine)
 include_directories(${MENGE_SRC_DIR}/MengeCore/Math)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../menge_common/include)
 link_directories (${MENGE_EXE_DIR})
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -135,9 +136,10 @@ include_directories(
 
 ## Declare a C++ library
 add_library(menge_gazebo_plugin
-   src/MengePlugin.cpp
-   src/MyViewer.cpp
-   src/ProjectSpec.cpp
+   src/MengeDefaultPlugin.cpp
+   ../menge_common/src/MengePlugin.cpp
+   ../menge_common/src/MyViewer.cpp
+   ../menge_common/src/ProjectSpec.cpp
 )
 
 target_link_libraries(menge_gazebo_plugin
