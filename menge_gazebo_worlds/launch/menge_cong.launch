@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+<!-- only need the empty world for headon project. No obstacles -->
+  <include file="$(find menge_gazebo_worlds)/launch/start.launch">
+   <arg name="world" value="$(find menge_gazebo_worlds)/worlds/menge_cong.world"/> 
+  </include>
+
+</launch>
