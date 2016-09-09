@@ -43,7 +43,7 @@
     </link>
   </model>
 
-  <model name ='box3'>
+  <!--<model name ='box3'>
     <static>true</static>
     <pose>-12 -20 5 0 0 0</pose>
     <link name ='link'>
@@ -58,25 +58,25 @@
         </geometry>
       </visual>
     </link>
-  </model>
+  </model>-->
   <model name ='box4'>
     <static>true</static>
-    <pose>12 -20 5 0 0 0</pose>
+    <pose>0 -20 5 0 0 0</pose>
     <link name ='link'>
       <collision name ='collision'>
         <geometry>
-          <box><size>16 6 10</size></box>
+          <box><size>40 6 10</size></box>
         </geometry>
       </collision>
       <visual name ='visual'>
         <geometry>
-          <box><size>16 6 10</size></box>
+          <box><size>40 6 10</size></box>
         </geometry>
       </visual>
     </link>
   </model>
   
- <model name ='box6'>
+ <!--<model name ='box6'>
     <static>true</static>
     <pose>20 0 5 0 0 0</pose>
     <link name ='link'>
@@ -91,7 +91,7 @@
         </geometry>
       </visual>
     </link>
-  </model>
+  </model>-->
  <model name ='box7'>
     <static>true</static>
     <pose>25 0 5 0 0 0</pose>
