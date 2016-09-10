@@ -4,7 +4,7 @@
  *  Created on: Jul 2, 2016
  *      Author: Michael Huang
  */
-
+#define USE_ACTOR 
 #include "MengePlugin.h"
 // STL
 #include <iostream>
@@ -48,7 +48,7 @@ using namespace Menge;
 float TIME_STEP = 0.01f;
 // The number of uniform simulation steps to take between logical time steps
 size_t SUB_STEPS = 0;
-#define WALKING_ANIMATION "walking"
+#define WALKING_ANIMATION "Walk"
 
 
 // Maximum duration of simulation (in seconds)
@@ -213,15 +213,15 @@ void MengePlugin::Load(physics::WorldPtr _parent, sdf::ElementPtr _sdf) {
 	insertAgents();
         _mengeView.start();	
 }
-void MengePlugin::controlActor(physics::ActorPtr _actor )
+void MengePlugin::controlActor(physics::InstancedActorPtr _actor )
 {
       std::cout<<"*** we got you first time!\n";
-  auto skelAnims = _actor->SkeletonAnimations();
+/*  auto skelAnims = _actor->SkeletonAnimations();
   if (skelAnims.find(WALKING_ANIMATION) == skelAnims.end())
   {
     gzerr << "Skeleton animation " << WALKING_ANIMATION << " not found.\n";
   }
-  {
+  */{
       std::cout<<"*** Insert trajectory for"<<_actor->GetName()<<"!\n";
     // Create custom trajectory
 
@@ -239,7 +239,7 @@ bool MengePlugin::updateAgent(const Agents::BaseAgent* agt)
   std::string uniq_name=sstm.str();
   ModelPtr mdl=_world->GetModel(uniq_name);	
 #ifdef USE_ACTOR
-  auto _actor = boost::dynamic_pointer_cast<physics::Actor>(mdl);
+  auto _actor = boost::dynamic_pointer_cast<physics::InstancedActor>(mdl);
   
   if(_actor==nullptr) {
     std::cout<<"did not get actor\n";  
@@ -256,7 +256,7 @@ bool MengePlugin::updateAgent(const Agents::BaseAgent* agt)
   math::Pose pose;
 
   // Compute the yaw orientation
-  ignition::math::Angle yaw = atan2(agt->_orient.y(),agt->_orient.x()); 
+  ignition::math::Angle yaw = atan2(agt->_orient.y(),agt->_orient.x())+3.1416+1.5707; 
   yaw.Normalize();
   
   
@@ -264,13 +264,13 @@ bool MengePlugin::updateAgent(const Agents::BaseAgent* agt)
   // animation
  // double distanceTraveled = (pose.Pos() -
  //     actor->GetWorldPose().Ign().Pos()).Length();
-  pose.Set(agt->_pos.x(), agt->_pos.y(),0.00,0,0,yaw.Radian());
+  pose.Set(agt->_pos.x(), agt->_pos.y(),0.00,1.5707,0,yaw.Radian());
   if((agt->_pos.x()<-30 || agt->_pos.x()>30))
   	agentsEscaped++;
   //reset cylinder radius if 200
   //std::cout<<"setting position for "<< uniq_name<<std::endl;
 #ifdef USE_ACTOR
-  mdl->SetWorldPose(pose, false, false);
+  _actor->SetWorldPose(pose, true, true);
 #else
   mdl->SetWorldPose(pose, true, true);
 #endif
@@ -299,7 +299,7 @@ void MengePlugin::controlActorAgents()
             sstm << "MengeAgent_clone_" <<agt->_id;
             std::string uniq_name=sstm.str();
             ModelPtr mdl=_world->GetModel(uniq_name);       
-            ActorPtr _actor = boost::dynamic_pointer_cast<physics::Actor>(mdl);
+            InstancedActorPtr _actor = boost::dynamic_pointer_cast<physics::InstancedActor>(mdl);
             if(_actor==nullptr){
                  std::cerr<<"something weird happened, actor for "<< uniq_name<<" is null\n";
                  continue;

@@ -10,6 +10,7 @@
 #define MENGEPLUGIN_H_
 #include <ignition/math/Pose3.hh>
 #include <gazebo/physics/physics.hh>
+#include <gazebo/physics/InstancedActor.hh>
 #include <gazebo/common/common.hh>
 #include <gazebo/gazebo.hh>
 #include <gazebo/common/Plugin.hh>
@@ -19,6 +20,7 @@
 #include <SimulatorDBEntry.h>
 #include <SimulatorInterface.h>
 #include <string>
+
 namespace gazebo {
 
 class MengePlugin: public WorldPlugin {
@@ -34,7 +36,7 @@ protected:
 	virtual bool updateAgent(const Menge::Agents::BaseAgent* agt);
 	void updateAgents();
 	void updateGoals();
-	void controlActor(physics::ActorPtr _actor);
+	void controlActor(physics::InstancedActorPtr _actor);
 	void controlActorAgents();
 	bool modelsInserted();
 	void simStart();

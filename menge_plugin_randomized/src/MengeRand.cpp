@@ -26,22 +26,22 @@ void MengeRand::insertAgentActor(const Agents::BaseAgent* agt)
 	std::stringstream sstm;
 	sstm << "MengeAgent_clone_" <<agt->_id;
 	std::string uniq_name=sstm.str();
- 	std::string skinFile("walk.dae");
-  	std::string animFile("walk.dae");
-  	std::string animName("walking");
+ 	std::string skinFile("Gamechar-male.mesh");
+  	std::string animFile("Gamechar-male.skeleton");
+  	std::string animName("Walk");
  	 std::ostringstream actorStr;
- 	 actorStr << "<sdf version='1.5'>"
-	    << "<actor name ='" << uniq_name << "'>"
-	
+ 	 actorStr << "<sdf version='1.6'>"
+	    << "<instanced_actor name ='" << uniq_name << "'>"
+	<<"<pose>0 0 0 1.5707 0 3.1416</pose>"
 	    << "  <skin>"
 	    << "    <filename>" << skinFile << "</filename>"
-	
+	      <<"  <scale>0.1</scale>"
 	    << "  </skin>"
 	    << "  <animation name='" << animName << "'>"
 	    << "    <filename>" << animFile << "</filename>"
 	
 	    << "  </animation>"
-	    << "</actor>"
+	    << "</instanced_actor>"
 	    << "</sdf>";	
 	msgs::Factory msg;
   	msg.set_sdf(actorStr.str());
