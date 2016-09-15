@@ -7,7 +7,10 @@
    
   <!-- Spawn simulated quadrotor uav -->
   <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch" >
-    <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro"/> 
+    <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro"/>
+    <arg  name="x" value="18.0"/> 
+    <arg  name="y" value="0.0"/> 
+    <arg  name="z" value="13.0"/> 
   </include>
   
   
