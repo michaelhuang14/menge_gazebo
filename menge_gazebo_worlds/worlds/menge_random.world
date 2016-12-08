@@ -140,7 +140,7 @@
       </visual>
     </link>
   </model><physics type='ode'>
-  <max_step_size>0.0010000</max_step_size>
+  <max_step_size>0.006000</max_step_size>
   <gravity>0.000000 0.000000 -9.800000</gravity>
 </physics>
   

@@ -58,7 +58,7 @@ float simStartTime = 0.0f;
 // Controls whether the simulation is verbose or not
 bool VERBOSE = false;
 bool agentsSynced = false;
-float simDelayPerAgent=0.5f;
+float simDelayPerAgent=0.1f;
 int agentsEscaped = 0;
 double lastPrint = 0;
 bool StartPrint = false;
@@ -377,7 +377,7 @@ void MengePlugin::OnUpdate(const common::UpdateInfo & _info) {
             //std::cout<<"updating at sim time:"<<_info.simTime.Double()<<" Menge time step:"<<_simulator->getTimeStep()<<"physics engine:"<<_world->GetPhysicsEngine()->GetType()<<std::endl;
             simUpdate(_info.simTime.Float()-simStartTime);
             this->lastUpdate = _info.simTime;
-	    if(_info.simTime.Double()>= 170)
+	    if(_info.simTime.Double()>= 130)
 		StartPrint = true;
             if(StartPrint && _info.simTime.Double() - lastPrint>=1.0){
         		std::cout<<"Agents Escaped: "<<agentsEscaped<<" Time: "<<_info.simTime.Double()<<std::endl;

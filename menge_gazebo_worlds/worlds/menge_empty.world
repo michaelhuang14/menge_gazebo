@@ -9,15 +9,10 @@
       <uri>model://sun</uri>
     </include>
 
-    <plugin name="menge_gazebo_plugin" filename="libmenge_gazebo_plugin.so"/>
-
-
-  <physics type='ode'>
-  <max_step_size>0.020000</max_step_size>
-  <real_time_update_rate>50</real_time_update_rate>
+<physics type='bullet'>
+  <max_step_size>0.0010</max_step_size>
   <gravity>0.000000 0.000000 -9.800000</gravity>
 </physics>
-
-
+    <plugin name="menge_plugin_randomized" filename="libmenge_plugin_randomized.so"/>
   </world>
 </sdf>
